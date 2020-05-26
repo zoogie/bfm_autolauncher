@@ -24,6 +24,7 @@ ctrc_kills_al_script = True
 active_job = False
 os_name = os.name
 skipUploadBecauseJobBroke = False
+count=0
 
 
 def signal_handler(sig, frame):
@@ -248,8 +249,9 @@ while True:
             time.sleep(30)
             continue
         if r.text == "nothing":
-            print("No work. Waiting 10 seconds...")
+            print("No work. Waited %d seconds..." % count, end='\r')
             time.sleep(10)
+            count+=10
         else:
             currentid = r.text
             skipUploadBecauseJobBroke = False
@@ -257,6 +259,7 @@ while True:
             if r2.text == "error":
                 print("Device already claimed, trying again...")
             else:
+                count=0
                 print("\nDownloading part1 for device " + currentid)
                 download_file(baseurl + '/getPart1?task=' +
                               currentid, 'movable_part1.sed')
