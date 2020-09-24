@@ -132,9 +132,9 @@ def getmax(lfcs):
 	print("Distance: %08X" % dist)
 	for i in distance:
 		if dist<i:
-			return max[c-1] + 10
+			return max[c-1]
 		c+=1
-	return max[len(distance)-1] + 10
+	return max[len(distance)-1]
 
 print("Checking for new release on GitHub...")
 githubReleaseRequest = s.get('https://api.github.com/repos/deadphoenix8091/bfm_autolauncher/releases/latest')
