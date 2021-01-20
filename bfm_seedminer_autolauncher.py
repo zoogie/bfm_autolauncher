@@ -17,9 +17,9 @@ import struct
 
 logging.basicConfig(level=logging.DEBUG, filename='bfm_autolauncher.log', filemode='w')
 s = requests.Session()
-baseurl = "https://bruteforcemovable.com"
+baseurl = "https://bfm.nintendohomebrew.com"
 currentid = ""
-currentVersion = "CURRENT_AUTOLAUNCHER_VERSION"
+currentVersion = "3.1.4"
 ctrc_kills_al_script = True
 active_job = False
 os_name = os.name
@@ -135,21 +135,6 @@ def getmax(lfcs):
 			return max[c-1]
 		c+=1
 	return max[len(distance)-1]
-
-print("Checking for new release on GitHub...")
-githubReleaseRequest = s.get('https://api.github.com/repos/deadphoenix8091/bfm_autolauncher/releases/latest')
-if githubReleaseRequest.status_code != 200:
-	print("ERROR: Unable to check GitHub for latest release.")
-	sys.exit(1)
-
-githubReleaseJson = githubReleaseRequest.json()
-if githubReleaseJson['tag_name'] != currentVersion :
-    print("Updating...")
-    download_file(githubReleaseJson['assets'][0]['browser_download_url'], 'bfm_seedminer_autolauncher.py')
-    subprocess.call([sys.executable, "bfm_seedminer_autolauncher.py"])
-    sys.exit(0)
-else:
-	print("Already up-to-date.")
 
 if os.path.isfile("bfm_autolauncher_exception.log"):
     try:
